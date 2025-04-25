@@ -1,11 +1,9 @@
 <html>
 <head>
 <script
-src="https://embed.array.io/cms/array-web-component.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"
-></script>
+src="https://embed.array.io/cms/array-web-component.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
 <script
-src="https://embed.array.io/cms/array-credit-alerts.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"
-></script>
+src="https://embed.array.io/cms/array-credit-alerts.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
 <script>
     async function refreshUserToken() {
       const response = await fetch('https://sandbox.array.io/api/authenticate/v2/usertoken', {
@@ -46,7 +44,7 @@ src="https://embed.array.io/cms/array-credit-alerts.js?appKey=3F03D20E-5311-43D8
 <body>
 <array-credit-alerts
 appKey="3F03D20E-5311-43D8-8A76-E4B5D77793BD"
-userToken=<span id="user-token"></span>
+userToken="<span id="user-token"></span>""
 apiUrl="https://sandbox.array.io"
 sandbox="true"
 ></array-credit-alerts>
