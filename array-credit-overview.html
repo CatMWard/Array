@@ -1,14 +1,54 @@
 <html>
-	<head>
-		<script src="https://embed.array.io/cms/array-web-component.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
-		<script src="https://embed.array.io/cms/array-credit-overview.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
-	</head>
-	<body>
-	<array-credit-overview
-		appKey="3F03D20E-5311-43D8-8A76-E4B5D77793BD"
-		userToken="6F8BE19F-8796-4281-9DAB-A0700E884104"
-		apiUrl="https://sandbox.array.io"
-		sandbox="true"
-	></array-credit-overview>
-	</body>
+<head>
+<script
+src="https://embed.array.io/cms/array-web-component.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"
+></script>
+<script
+src="https://embed.array.io/cms/array-credit-alerts.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"
+></script>
+<script>
+    async function refreshUserToken() {
+      const response = await fetch('https://sandbox.array.io/api/authenticate/v2/usertoken', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'X-Array-Server-Token': '93061BA4-3DD3-43BB-8574-685B860FE894',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          appKey: '3F03D20E-5311-43D8-8A76-E4B5D77793BD',
+          userId: '04bd19bd-b676-43e6-af6a-92ee3323712d',
+          ttlInMinutes: '60'
+        })
+      });
+    
+      if (!response.ok) {
+        console.error('Failed to fetch token', await response.text());
+        return;
+      }
+    
+      const data = await response.json();
+      const newToken = data.userToken;
+    
+      // Replace token in DOM
+      const tokenEl = document.getElementById('user-token');
+      if (tokenEl) {
+        tokenEl.textContent = newToken;
+      } else {
+        console.error('Could not find element to replace token');
+      }
+    }
+    
+    window.onload = refreshUserToken;
+    </script>
+
+</head>
+<body>
+<array-credit-alerts
+appKey="3F03D20E-5311-43D8-8A76-E4B5D77793BD"
+userToken=<span id="user-token"></span>
+apiUrl="https://sandbox.array.io"
+sandbox="true"
+></array-credit-alerts>
+</body>
 </html>
