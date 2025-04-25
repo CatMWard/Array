@@ -1,0 +1,45 @@
+<html>
+<head>
+  <script src="https://embed.array.io/cms/array-web-component.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
+  <script src="https://embed.array.io/cms/array-credit-alerts.js?appKey=3F03D20E-5311-43D8-8A76-E4B5D77793BD"></script>
+  <script>
+    async function refreshUserToken() {
+      const response = await fetch('https://sandbox.array.io/api/authenticate/v2/usertoken', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'X-Array-Server-Token': '93061BA4-3DD3-43BB-8574-685B860FE894',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          appKey: '3F03D20E-5311-43D8-8A76-E4B5D77793BD',
+          userId: '04bd19bd-b676-43e6-af6a-92ee3323712d',
+          ttlInMinutes: '60'
+        })
+      });
+
+      if (!response.ok) {
+        console.error('Failed to fetch token', await response.text());
+        return;
+      }
+
+      const data = await response.json();
+      const newToken = data.userToken;
+
+      // Dynamically create the component with the fetched token
+      const alertsComponent = document.createElement('array-credit-alerts');
+      alertsComponent.setAttribute('appKey', '3F03D20E-5311-43D8-8A76-E4B5D77793BD');
+      alertsComponent.setAttribute('userToken', newToken);
+      alertsComponent.setAttribute('apiUrl', 'https://sandbox.array.io');
+      alertsComponent.setAttribute('sandbox', 'true');
+
+      document.body.appendChild(alertsComponent);
+    }
+
+    window.onload = refreshUserToken;
+  </script>
+</head>
+<body>
+  <!-- The component will be added here dynamically -->
+</body>
+</html>
