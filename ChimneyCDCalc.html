@@ -4,8 +4,14 @@
 </head>
 <body>
 <div class='chimney_calc' data-guid='15afb300-1d38-4354-8098-d968c682f801'></div>
-	  <script>
-document.getElementById('CD_INTEREST_RATE').disabled = true;
+<script>
+const interval = setInterval(() => {
+  const el = document.getElementById('CD_INTEREST_RATE');
+  if (el) {
+    el.disabled = true;
+    clearInterval(interval);
+  }
+}, 300);
 </script>
 </body>
 </html>
